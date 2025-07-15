@@ -2,7 +2,7 @@ import { Text, View , StyleSheet , Image } from "react-native";
 import {Link} from "expo-router";
 
 
-export default function Index() {
+export default function Index()  {
 
   return (
     <View style={styles.container}>
