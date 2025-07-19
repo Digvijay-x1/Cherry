@@ -1,5 +1,4 @@
-import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView} from "react-native";
-import {Link} from "expo-router";
+import {Text, View, TouchableOpacity, ScrollView, FlatList} from "react-native";
 import {useAuth} from "@clerk/clerk-expo";
 import {styles} from "@/styles/feed.styles"
 import {Ionicons} from "@expo/vector-icons";
@@ -13,6 +12,7 @@ import Post from "@/components/post"
 
 
 export default function Index()  {
+
   const {signOut} = useAuth();
 
   const posts = useQuery(api.posts.getFeedPosts);
@@ -23,31 +23,37 @@ export default function Index()  {
     <View style={styles.container}>
       {/* HEADER */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Spotlight</Text>
+        <Text style={styles.headerTitle}>Cherry</Text>
         <TouchableOpacity onPress={()=> signOut()}>
           <Ionicons name={"log-out-outline"} size={24} color={COLORS.white}/>
         </TouchableOpacity>
       </View>
-      <ScrollView
+        {/* use flat list to render posts */}
+      <FlatList
+          data={posts}
+          renderItem={({item})=><Post post={item}/>}
+          keyExtractor={(item) => item._id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 60}}
-      >
-        {/* Stories */}
-        <ScrollView
-          horizontal
-          showsVerticalScrollIndicator={false}
-          style={styles.storiesContainer}
-          >
-          {STORIES.map((story)=>(
-            <Story key={story.id} story={story}/>
-          ))}
-        </ScrollView>
-        {posts.map((post)=>(
-            <Post post={post} key={post._id}/>
-        ))}
-      </ScrollView>
+          ListHeaderComponent={<StoriesSection/>}
+      />
+
     </View>
   );
+}
+
+const StoriesSection = () => {
+    return (
+    <ScrollView
+        horizontal
+        showsVerticalScrollIndicator={false}
+        style={styles.storiesContainer}
+    >
+        {STORIES.map((story)=>(
+            <Story key={story.id} story={story}/>
+        ))}
+    </ScrollView>
+)
 }
 
 
