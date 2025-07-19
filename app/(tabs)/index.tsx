@@ -28,7 +28,10 @@ export default function Index()  {
           <Ionicons name={"log-out-outline"} size={24} color={COLORS.white}/>
         </TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 60}}
+      >
         {/* Stories */}
         <ScrollView
           horizontal

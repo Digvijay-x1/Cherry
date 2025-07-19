@@ -126,11 +126,13 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         color: COLORS.grey,
         marginBottom: 4,
+        fontFamily: "Roboto",
     },
     timeAgo: {
         fontSize: 12,
         color: COLORS.grey,
         marginBottom: 8,
+        fontFamily: "Roboto",
     },
     modalContainer: {
         backgroundColor: COLORS.background,
