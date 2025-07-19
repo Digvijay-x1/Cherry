@@ -3,7 +3,6 @@ import { StyleSheet, Dimensions } from "react-native";
 import { COLORS } from "@/constants/theme";
 
 const { width } = Dimensions.get("window");
-const { height } = Dimensions.get("window")
 
 export const styles = StyleSheet.create({
     container: {
@@ -57,6 +56,7 @@ export const styles = StyleSheet.create({
     emptyImageText: {
         color: COLORS.grey,
         fontSize: 16,
+        fontFamily: "Roboto",
     },
     content: {
         flex: 1,
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     },
     imageSection: {
         width: width,
-        height: height,
+        height: width,
         backgroundColor: COLORS.surface,
         justifyContent: "center",
         alignItems: "center",

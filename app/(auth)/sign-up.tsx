@@ -1,6 +1,6 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import { styles} from "@/styles/auth.styles";
-import {Ionicons} from "@expo/vector-icons";
+import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {COLORS} from "@/constants/theme";
 import {useSSO} from "@clerk/clerk-expo";
 import {useRouter} from "expo-router";
@@ -28,9 +28,9 @@ export default function login() {
             {/* Brand Section */}
             <View style={styles.brandSection}>
                 <View style={styles.logoContainer}>
-                    <Ionicons name="planet-sharp" size={32} color={COLORS.primary}/>
+                    <MaterialCommunityIcons name="fruit-cherries" color={COLORS.primary} size={31} />
                 </View>
-                <Text style={styles.appName}>Agora</Text>
+                <Text style={styles.appName}>Cherry</Text>
                 <Text style={styles.tagline}>don't miss the frame</Text>
             </View>
 
