@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
         color: COLORS.grey,
         letterSpacing: 1,
         textTransform: "lowercase",
+        fontFamily: "Roboto"
     },
     illustrationContainer: {
         flex: 1,

@@ -1,41 +1,67 @@
-import {Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
+import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView} from "react-native";
 import {Link} from "expo-router";
 import {useAuth} from "@clerk/clerk-expo";
-
-// we have to confirm that the request is coming from clerk
-// if true, we have to listen for that event (user.create event)
-// if so register the user in the database
+import {styles} from "@/styles/feed.styles"
+import {Ionicons} from "@expo/vector-icons";
+import {COLORS} from "@/constants/theme";
+import {STORIES} from "@/constants/mock-data";
+import Story from "@/components/story";
+import {api} from "@/convex/_generated/api";
+import {useQuery} from "convex/react";
+import {Loader} from "@/components/Loader";
+import Post from "@/components/post"
 
 
 export default function Index()  {
   const {signOut} = useAuth();
+
+  const posts = useQuery(api.posts.getFeedPosts);
+
+  if(posts=== undefined) return <Loader/>
+  if(posts.length === 0) return <NoPostYet/>
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Petrick Bateman</Text>
-        <Image source={{uri:"https://upload.wikimedia.org/wikipedia/en/5/52/American-psycho-patrick-bateman.jpg"}}
-               style={{width: 200, height: 200, resizeMode:"cover"} }/>
-        <Link style={styles.title} href={"/notification"}>GO to notification</Link>
-        <TouchableOpacity onPress={()=>{signOut()}}>
-            <Text style={styles.title}>
-                signOUt
-            </Text>
+      {/* HEADER */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Spotlight</Text>
+        <TouchableOpacity onPress={()=> signOut()}>
+          <Ionicons name={"log-out-outline"} size={24} color={COLORS.white}/>
         </TouchableOpacity>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Stories */}
+        <ScrollView
+          horizontal
+          showsVerticalScrollIndicator={false}
+          style={styles.storiesContainer}
+          >
+          {STORIES.map((story)=>(
+            <Story key={story.id} story={story}/>
+          ))}
+        </ScrollView>
+        {posts.map((post)=>(
+            <Post post={post} key={post._id}/>
+        ))}
+      </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    title : {
-        color: '#fff',
-        fontSize: 30,
-    }
-})
+
+const NoPostYet = () => {
+  return (
+      <View
+          style={{
+            flex: 1,
+            backgroundColor: COLORS.background,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+      >
+        <Text style={{fontSize: 20 , color: COLORS.primary , fontFamily: "Roboto"}}>No Posts Found </Text>
+      </View>
+  )
+}
 
 
 

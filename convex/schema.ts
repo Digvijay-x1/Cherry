@@ -25,6 +25,7 @@ export default defineSchema({
     likes: defineTable({
         userId: v.id("users"),
         postId: v.id("posts"),
+        commentId: v.optional(v.id("comments")),
     })
         .index("by_post",["postId"])
         .index("by_user_and_post",["userId","postId"])
@@ -59,4 +60,8 @@ export default defineSchema({
         .index('by_user',['userId'])
         .index('by_post',["postId"])
         .index('by_user_and_post',['userId','postId']),
+
 })
+
+
+// by digvijay
