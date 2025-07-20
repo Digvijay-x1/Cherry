@@ -32,8 +32,8 @@ export default defineSchema({
     ,
 
     comments: defineTable({
-        userId: v.string(),
-        postId: v.string(),
+        userId: v.id("users"),
+        postId: v.id("posts"),
         content: v.string(),
     }).index("by_posts",["postId"]),
 
@@ -63,5 +63,3 @@ export default defineSchema({
 
 })
 
-
-// by digvijay
